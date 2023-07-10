@@ -11,14 +11,29 @@ export const ContactForm = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
 
+
+  const formatPhoneNumber = value => {
+    return (
+      value
+        .replace(/[^0-9-]/g, '')
+        .replace(/(-{2,})/g, '-')
+        .replace(/(^-|-$)/g, '')
+        .replace(/(-)/g, '')
+        .match(/.{1,3}/g)
+        ?.join('-')
+        ?.trim() || ''
+    );
+  };
+
   const handleSubmit = event => {
     event.preventDefault();
 
-    const contact = {
-      id: nanoid(),
-      name: event.currentTarget.elements.name.value,
-      number: event.currentTarget.elements.number.value,
-    };
+   const contact = {
+     id: nanoid(),
+     name: event.currentTarget.elements.name.value,
+     number: formatPhoneNumber(event.currentTarget.elements.number.value),
+   };
+
 
     const isExist = contacts.find(
       ({ name }) => name.toLowerCase() === contact.name.toLowerCase()
