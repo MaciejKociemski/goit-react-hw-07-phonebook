@@ -18,12 +18,12 @@ export const ContactList = () => {
 
   return (
     <ul className={css.list}>
-      {filteredContacts.map(({ id, name, phone }) => {
-        const indexOfX = phone.indexOf('x');
+      {filteredContacts.map(({ id, name, number }) => {
+        const indexOfX = number.indexOf('x');
         const displayPhone =
           indexOfX !== -1
-            ? phone.substring(0, indexOfX).replace(/\./g, '-')
-            : phone.replace(/\./g, '-');
+            ? number.substring(0, indexOfX).replace(/\./g, '-')
+            : number.replace(/\./g, '-');
         return (
           <li className={css.item} key={id}>
             <span>{name}:</span>
